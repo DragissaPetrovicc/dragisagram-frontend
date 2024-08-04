@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, LinearProgress } from "@mui/material";
+import { Alert, Button, LinearProgress, Tab, Tabs } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import { useTranslation } from "react-i18next";
@@ -20,7 +20,6 @@ import { UserRoute } from "../PrivateRoutes";
 import { Image, Settings } from "@mui/icons-material";
 import SavedPostsModal from "../modals/SavedPosts";
 import SettingsModal from "../modals/SettingsModal";
-import { Tabs as ReactTabs, Tab as ReactTab } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const UserDetails: React.FC = () => {
@@ -100,8 +99,8 @@ const UserDetails: React.FC = () => {
     })();
   }, [id, t, myId, refresh]);
 
-  const handleChange = (index: number) => {
-    setValue(index);
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
   };
 
   const follow = async () => {
@@ -246,19 +245,37 @@ const UserDetails: React.FC = () => {
             )}
           </div>
         </div>
-        <AppBar position="static" sx={{ bgcolor: "fuchsia", color: "black" }}>
-          <ReactTabs
-            selectedIndex={value}
-            onSelect={(e) => handleChange(e)}
-            aria-label="user details tabs"
+        <AppBar
+          position="static"
+          sx={{
+            bgcolor: "fuchsia",
+            color: "black",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+            width: { xs: "100%", lg: "50%" },
+          }}
+        >
+          <Tabs
+            className="!flex !flex-row !justify-between !self-center !items-center !w-full"
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
           >
-            <ReactTab className="!font-bold !text-black" selected={value === 0}>
-              {t("posts")}
-            </ReactTab>
-            <ReactTab className="!font-bold !text-black" selected={value === 1}>
-              {t("tagged")}
-            </ReactTab>
-          </ReactTabs>
+            <Tab
+              label={t("posts")}
+              className="!font-bold !w-1/2 !text-black"
+              value={0}
+            />
+
+            <Tab
+              label={t("tagged")}
+              className="!font-bold !w-1/2 !text-black"
+              value={1}
+            />
+          </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
           <UsersPosts id={id as string} />
