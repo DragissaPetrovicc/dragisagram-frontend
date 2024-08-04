@@ -3,8 +3,6 @@ import { Alert, Button, LinearProgress } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import { useTheme } from "@mui/material/styles";
-import { Tabs as ReactTabs, Tab as ReactTab } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import { useTranslation } from "react-i18next";
 import { TabPanel } from "../Custom elements/customelements";
 import { axiosT } from "../config/axios";
@@ -23,6 +21,8 @@ import { UserRoute } from "../PrivateRoutes";
 import { Image, Settings } from "@mui/icons-material";
 import SavedPostsModal from "../modals/SavedPosts";
 import SettingsModal from "../modals/SettingsModal";
+import { Tabs as ReactTabs, Tab as ReactTab } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const UserDetails: React.FC = () => {
   const [error, setError] = useState<string>("");
