@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, LinearProgress } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { TabPanel } from "../Custom elements/customelements";
 import { axiosT } from "../config/axios";
@@ -40,7 +39,6 @@ const UserDetails: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const theme = useTheme();
   const myId = useSelector((state: RootState) => state.myId.items);
   const [value, setValue] = useState<number>(0);
   const { t } = useTranslation();
