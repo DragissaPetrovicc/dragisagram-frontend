@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, LinearProgress } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import { useTheme } from "@mui/material/styles";
-import SwipeableViews from "react-swipeable-views";
+import { Tabs as ReactTabs, Tab as ReactTab } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 import { useTranslation } from "react-i18next";
-import { a11yProps, TabPanel } from "../Custom elements/customelements";
+import { TabPanel } from "../Custom elements/customelements";
 import { axiosT } from "../config/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/config";
@@ -103,11 +102,7 @@ const UserDetails: React.FC = () => {
     })();
   }, [id, t, myId, refresh]);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index: number) => {
+  const handleChange = (index: number) => {
     setValue(index);
   };
 
@@ -254,39 +249,25 @@ const UserDetails: React.FC = () => {
           </div>
         </div>
         <AppBar position="static" sx={{ bgcolor: "fuchsia", color: "black" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="secondary"
-            textColor="inherit"
-            variant="fullWidth"
-            className="!font-bold"
-            aria-label="full width tabs example"
+          <ReactTabs
+            selectedIndex={value}
+            onSelect={(e) => handleChange(e)}
+            aria-label="user details tabs"
           >
-            <Tab
-              className="!font-bold !text-black"
-              label={t("posts")}
-              {...a11yProps(0)}
-            />
-            <Tab
-              className="!font-bold !text-black"
-              label={t("tagged")}
-              {...a11yProps(1)}
-            />
-          </Tabs>
+            <ReactTab className="!font-bold !text-black" selected={value === 0}>
+              {t("posts")}
+            </ReactTab>
+            <ReactTab className="!font-bold !text-black" selected={value === 1}>
+              {t("tagged")}
+            </ReactTab>
+          </ReactTabs>
         </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <UsersPosts id={id as string} />
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <TaggedUsersPosts />
-          </TabPanel>
-        </SwipeableViews>
+        <TabPanel value={value} index={0}>
+          <UsersPosts id={id as string} />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <TaggedUsersPosts />
+        </TabPanel>
       </div>
 
       <FollowersModal
