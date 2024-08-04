@@ -52,7 +52,6 @@ react-phone-number-input: International phone number input component.
 react-redux: Official React bindings for Redux.
 react-router-dom: DOM bindings for React Router.
 react-scripts: Scripts and configuration used by Create React App.
-react-swipeable-views: React component for swipeable views.
 redux: Predictable state container for JavaScript apps.
 socket.io-client: Real-time communication library.
 typescript: Typed superset of JavaScript that compiles to plain JavaScript.
