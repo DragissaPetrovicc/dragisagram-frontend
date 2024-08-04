@@ -19,6 +19,8 @@ const NotFound: React.FC = () => {
       navigate(`/adminDashboard/${id}`);
     } else if (!!id && role === "USER") {
       navigate(`/home/${id}`);
+    } else {
+      navigate(ROUTES.LOGIN);
     }
   }, [id, role, navigate]);
 
